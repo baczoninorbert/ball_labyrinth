@@ -47,36 +47,32 @@ public class Controller {
     OverallView overallView ;
 
     /**
-     * Sets the current view
-     * @param overallView
+     * Sets the current view.
+     * @param overallView view
      */
     public void setOverallView(OverallView overallView) {
         this.overallView = overallView;
     }
 
     /**
-     * Returns the name of the player
+     * Returns the name of the player.
      * @return {@link String}
      */
     public String getPlayerName() {
         return playerName;
     }
 
-    /**
-     * Sets the name of the player
-     * @param playerName
-     */
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
 
     /**
-     * Checks how many steps can the player make going up
-     * @param labyrinth
-     * @param currx
-     * @param curry
-     * @return {@value}
+     * Checks how many steps can the player make going up.
+     * @param labyrinth map
+     * @param currx player position x
+     * @param curry player positon y
+     * @return number of steps
      */
     public int checkUp(Labyrinth labyrinth, int currx, int curry) {
         int howmanysteps = 0;
@@ -101,10 +97,10 @@ public class Controller {
 
     /**
      * Checks how many steps can the player make going down
-     * @param labyrinth
-     * @param currx
-     * @param curry
-     * @return {@value}
+     * @param labyrinth map
+     * @param currx player position x
+     * @param curry player positon y
+     * @return number of steps
      */
     public int checkDown(Labyrinth labyrinth, int currx, int curry) {
         int howmanysteps = 0;
@@ -123,10 +119,10 @@ public class Controller {
     }
     /**
      * Checks how many steps can the player make going left
-     * @param labyrinth
-     * @param currx
-     * @param curry
-     * @return {@value}
+     * @param labyrinth map
+     * @param currx player position x
+     * @param curry player positon y
+     * @return number of steps
      */
     public int checkLeft(Labyrinth labyrinth, int currx, int curry) {
         System.out.println(curry);
@@ -143,14 +139,14 @@ public class Controller {
         }
         return 0;
     }
-
     /**
      * Checks how many steps can the player make going right
-     * @param labyrinth
-     * @param currx
-     * @param curry
-     * @return {@value}
+     * @param labyrinth map
+     * @param currx player position x
+     * @param curry player positon y
+     * @return number of steps
      */
+
     public int checkRight(Labyrinth labyrinth, int currx, int curry) {
         int howmanysteps = 0;
         System.out.println(labyrinth.getStructure().size());
@@ -171,7 +167,7 @@ public class Controller {
 
     /**
      * Changes the players position if the player can move upwards
-     * @param labyrinth
+     * @param labyrinth map
      */
     public void moveUp(Labyrinth labyrinth) {// int currx, int curry) {
         overallView = new OverallView();
@@ -192,7 +188,7 @@ public class Controller {
     }
     /**
      * Changes the players position if the player can move downwards
-     * @param labyrinth
+     * @param labyrinth map
      */
         public void moveDown(Labyrinth labyrinth) {// int currx, int curry) {
             overallView = new OverallView();
@@ -211,10 +207,6 @@ public class Controller {
                 newPlayerX++;
             }
         }
-    /**
-     * Changes the players position if the player can move left
-     * @param labyrinth
-     */
     public void  moveLeft (Labyrinth labyrinth) {// int currx, int curry) {
         overallView = new OverallView();
         int playerX = labyrinth.getPlayerx();
@@ -230,10 +222,6 @@ public class Controller {
             newPlayerY--;
         }
     }
-    /**
-     * Changes the players position if the player can move right
-     * @param labyrinth
-     */
     public void moveRight(Labyrinth labyrinth) {// int currx, int curry) {
         overallView = new OverallView();
         int playerX = labyrinth.getPlayerx();
@@ -250,10 +238,6 @@ public class Controller {
         }
     }
 
-    /**
-     * Sets the players current steps
-     * @param steps
-     */
     public void setSteps(int steps) {
         this.steps = steps;
     }
@@ -274,15 +258,9 @@ public class Controller {
         return playersteps;
     }
 
-    /**
-     * Sets the players current steps
-     * @param playersteps
-     */
     public void setPlayersteps(Score playersteps) {
         this.playersteps = playersteps;
     }
-
-
     /**
      * Gets the reader
      * @return {@link Reader}

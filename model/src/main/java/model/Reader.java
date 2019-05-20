@@ -88,9 +88,6 @@ public class Reader {
         }
     }
 
-    /**
-     * Saves the {@link model.ScoreBoard ScoreBoard} object to a JSON file.
-     */
     public void saveScoreBoard() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String strJson = gson.toJson(highScores);
@@ -122,79 +119,3 @@ public class Reader {
         this.highScores = highScores;
     }
 }
-/*
-    public Labyrinth readmap(String file) {
-        try {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            InputStream is =Reader.class.getClassLoader().getResourceAsStream(file);
-            InputStreamReader inputStreamReader = new InputStreamReader(is);
-            Labyrinth result = gson.fromJson(inputStreamReader, Labyrinth.class);
-            return result;
-        }
-        catch (Exception e)
-        {
-            System.out.println("Anyadat");
-        }
-        return null;
-
-    }
-
- */
-/*
-    public static void make(Labyrinth labyrinth) {
-        ArrayList<ArrayList<Character>>  structure = labyrinth.getStructure();
-        int startx = labyrinth.getPlayerx();
-        int starty = labyrinth.getPlayery();
-        int finishy = labyrinth.getFinishy();
-    }
-
- */
-
-
-
-
-
-
-        //System.out.println(result.getStructure()== null);
-
-
-        //System.out.println(result);
-        //for (int i = 0; i < result.getStructure().size(); i++) {
-          // for(int j = 0; j < result.getStructure().get(i).toCharArray().length; j++) {
-            //   System.out.println(result.getStructure().get(i).toCharArray()[j]);
-           //}
-
-        //}
-        //  for(int i=0;i<lab.size();i++){
-
-        //    System.out.println(lab.get(i));
-       // }
-
-
-/*
-    public int[] getCel(Labyrinth map) {
-
-        for (int i = 0; i < map.getStructure().size(); i++) {
-            for(int j = 0; j < map.getStructure().get(i).toCharArray().length; j++) {
-                if( map.getStructure().get(i).toCharArray()[j] == '&') {
-                    return new int[] {i, j};
-                }
-
-            }
-        }
-        return null;
-    }
-
-    public int[] getStart(Labyrinth map){
-
-        for (int i = 0; i < map.getStructure().size(); i++) {
-            for(int j = 0; j < map.getStructure().get(i).toCharArray().length; j++) {
-                if( map.getStructure().get(i).toCharArray()[j] == '@') {
-                    return new int[] {i, j};
-                }
-
-            }
-        }
-        return null;
-    }
- */

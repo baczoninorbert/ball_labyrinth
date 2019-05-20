@@ -7,22 +7,6 @@ public class HighScores {
     private Score playerpoints;
     private HashMap<String, Score> playerScore;
 
-    public String getPlayername() {
-        return playername;
-    }
-
-    public void setPlayername(String playername) {
-        this.playername = playername;
-    }
-
-    public Score getPlayerpoints(String playerName) {
-        return playerpoints;
-    }
-
-    public void setPlayerpoints(Score playerpoints) {
-        this.playerpoints = playerpoints;
-    }
-
     public HashMap<String, Score> getPlayerScore() {
         return playerScore;
     }
