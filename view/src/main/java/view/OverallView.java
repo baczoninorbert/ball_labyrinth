@@ -3,9 +3,10 @@ package view;
 import javafx.application.Application;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import model.GameMap;
+import model.GameImageModel;
 import model.Labyrinth;
 import model.Reader;
+import org.pmw.tinylog.Logger;
 
 import java.io.IOException;
 
@@ -13,7 +14,7 @@ public class OverallView extends Application {
 
     Reader reader = new Reader();
     Menu menu;
-    GameMap gameMap;
+    GameImageModel gameImageModel;
     Labyrinth labyrinth;
     public static Stage stage;
     private GameView gameView;
@@ -33,81 +34,21 @@ public class OverallView extends Application {
         controller.setOverallView(this);
         initializeMenu();
 
-        /*
-        window = primaryStage;
-
-
-        //Button 1
-        Label label1 = new Label("New LabyrinthMaker");
-        Button button1 = new Button("New LabyrinthMaker");
-            button1.setOnAction(e -> {
-                try {
-                    scene1 = menuHandler.setGameScene();
-                    window.setScene(scene1);
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            });
-
-
-
-
-        //Button 2
-        Button button2 = new Button("Load LabyrinthMaker");
-        button2.setOnAction(e -> window.setScene(scene2));
-
-
-        //Button 3
-        Button button3 = new Button("Highscores");
-        button3.setOnAction(e -> window.setScene(scene2));
-
-
-        //Button 4
-        Button button4 = new Button("Exit");
-        button4.setOnAction(e -> window.setScene(scene2));
-
-        //Layout 1 - children laid out in vertical column
-
-        VBox layout1 = new VBox();
-        layout1.setAlignment(Pos.CENTER);
-        layout1.getChildren().addAll(button1,button2,button3,button4);
-        scene1 = new Scene(layout1, 200, 200);
-
-
-        //Button 5
-        Button button5 = new Button("Exit");
-        button5.setOnAction(e -> window.setScene(scene1));
-
-        //Layout 2
-        VBox layout2 = new VBox();
-
-        layout2.getChildren().add(button5);
-        scene2 = new Scene(layout2, 600, 300);
-
-        //Display scene 1 at first
-        window.setScene(scene1);
-        window.setTitle("Title Here");
-        window.setResizable(false);
-        window.show();
-        if(window.equals(scene1)) {
-            System.out.println("johelyen vagyunk");
-        }
-
-         */
-
     }
     public void initializeMenu() {
         try {
             controller = new Controller();
             controller.setOverallView(this);
+            reader.loadScoreBoard();
             VBox verticalbox = new VBox();
             menu = new Menu(this,verticalbox);
+            Logger.info("Initializing Menu");
             stage.setScene(menu);
             stage.show();
        }
         catch (Exception e)
        {
-            System.out.println("itt is hibaztunk");
+           Logger.error("Menu couldn't be initialized");
        }
 
 
@@ -120,11 +61,12 @@ public class OverallView extends Application {
             VBox verticalbox = new VBox();
             victory = new Victory(this,verticalbox,name,score);//,verticalbox);
             stage.setScene(victory);
+            Logger.info("Initializing Victory Screen");
             stage.show();
         }
         catch (Exception e)
         {
-            System.out.println("itt is hibaztunk");
+            Logger.error("VictoryScreen can't be initialized");
         }
     }
 
@@ -136,17 +78,17 @@ public class OverallView extends Application {
     public void refreshMap(Labyrinth labyrinth) {
         controller = new Controller();
         controller.setOverallView(this);
-        System.out.println("eljutottunk a refreshmapba");
         GameView gameView = new GameView();
         gameView.setLabyrinth(labyrinth);
-        gameMap = new GameMap(labyrinth);
-        stage.setScene(gameView.setGameScene(labyrinth, gameMap));
+        gameImageModel = new GameImageModel(labyrinth);
+        Logger.info("Updating current map");
+        stage.setScene(gameView.setGameScene(labyrinth, gameImageModel));
         stage.show();
     }
 
     public void resumeMap(Labyrinth labyrinth) {
-        gameMap = new GameMap(labyrinth);
-        stage.setScene(gameView.setGameScene(labyrinth,gameMap));
+        gameImageModel = new GameImageModel(labyrinth);
+        stage.setScene(gameView.setGameScene(labyrinth, gameImageModel));
         stage.show();
     }
 
@@ -168,8 +110,9 @@ public class OverallView extends Application {
         GameView gameView = new GameView();
         gameView.setSteps(0);
         gameView.setPlayerName(menu.getPlayerName().getText());
-        gameMap = new GameMap(labyrinth);
-        stage.setScene(gameView.setGameScene(labyrinth,gameMap));
+        gameImageModel = new GameImageModel(labyrinth);
+        Logger.info("Starting new game, loading the map");
+        stage.setScene(gameView.setGameScene(labyrinth, gameImageModel));
         stage.show();
     }
     public void initializeScoreBoard() {
@@ -179,6 +122,7 @@ public class OverallView extends Application {
         }
 
         scoreView.reloadData();
+        Logger.info("Loading scoretable");
         stage.setScene(scoreView);
         stage.show();
     }

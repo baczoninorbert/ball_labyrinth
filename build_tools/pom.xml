@@ -7,9 +7,35 @@
         <groupId>hu.unideb.inf</groupId>
         <version>1.0</version>
     </parent>
+    <properties>
+        <site.basedir>${project.basedir}</site.basedir>
+    </properties>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>build_tools</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.13</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.13</version>
+        </dependency>
+    </dependencies>
 
+    <build>
+        <plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+            <configLocation>${project.parent.basedir}/build_tools/src/main/resources/</configLocation>
+        </configuration>
+    </plugin>
+    </plugins>
+    </build>
 
 </project>

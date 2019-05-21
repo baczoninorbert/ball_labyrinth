@@ -11,6 +11,7 @@
       <set>
         <option value="$PROJECT_DIR$/build_tools/pom.xml" />
         <option value="$PROJECT_DIR$/controller/pom.xml" />
+        <option value="$PROJECT_DIR$/logger/pom.xml" />
         <option value="$PROJECT_DIR$/model/pom.xml" />
         <option value="$PROJECT_DIR$/view/pom.xml" />
       </set>

@@ -3,6 +3,7 @@ package model;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.pmw.tinylog.Logger;
 
 import java.io.*;
 import java.nio.file.FileSystems;
@@ -11,12 +12,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 
+/**
+ * Class that reads loads and saves output to {@link Labyrinth labyrinth} and {@link HighScores scoreboard}
+ */
 public class Reader {
     public Reader() {
-        loadScoreBoard();
+
     }
-    private Gson gson = new Gson();
+
+    /**
+     * Class that stores the scores of every player.
+     */
     private static HighScores highScores = new HighScores();
+
+    /**
+     * Class that returns the map model from input.
+     * @return {@link Labyrinth labyrinth} the model of the map
+     */
     public Labyrinth startLabyrinth() {
 
         try {
@@ -28,22 +40,27 @@ public class Reader {
         }
         catch (Exception e)
         {
-            System.out.println("nem sikerult beolvasni a filet");
+            e.printStackTrace();
         }
         return null;
     }
+
+    /**
+     * Function that returns the path to the score.json file
+     * @return path
+     */
     private String pathToScores() {
         String path = null;
         try {
             Path workingDirectory = FileSystems.getDefault().getPath("").toAbsolutePath();
             path = workingDirectory.toString() + File.separator + "scores" + File.separator;
         } catch (Exception e) {
-            //logger.error(e.toString());
+            Logger.error(e.toString());
         }
 
         File directory = new File(path);
         if (directory.mkdir()) {
-          //  logger.info("Directory {} created", path);
+            Logger.info("Directory {} created", path);
         }
 
         try {
@@ -51,26 +68,30 @@ public class Reader {
             Path dest = Paths.get(path);
             if (Files.notExists(dest)) {
                 Files.createFile(Paths.get(path));
-            //    logger.info("File {} created", path);
+                Logger.info("File {} created", path);
             } else {
-              //  logger.info("{} already exists", path);
+                Logger.info("{} already exists", path);
             }
         } catch (IOException e) {
-           // logger.error(e.toString());
+            Logger.error(e.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return path;
     }
+
+    /**
+     * Function that loads {@link HighScores highscores}
+     */
     public void loadScoreBoard() {
         Gson gson = new Gson();
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(pathToScores()));
             highScores= gson.fromJson(br, HighScores.class);
-            //logger.info("ScoreBoard loaded");
-            //logger.info(String.valueOf(scoreBoard == null));
+            Logger.info("ScoreBoard loaded");
+            Logger.info(String.valueOf(highScores == null));
             if (highScores== null) {
                 highScores= new HighScores();
                 highScores.setPlayerScore(new HashMap<String,Score>());
@@ -88,6 +109,9 @@ public class Reader {
         }
     }
 
+    /**
+     * Function that saves {@link HighScores scores}.
+     */
     public void saveScoreBoard() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String strJson = gson.toJson(highScores);

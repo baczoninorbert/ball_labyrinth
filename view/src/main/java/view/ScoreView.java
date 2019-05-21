@@ -9,6 +9,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import model.Score;
+import org.pmw.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class ScoreView extends Scene {
         super(verticalBox);
         overallView= Overallview;
 
-        //logger.info("ScoreView constructor");
+        Logger.info("ScoreView constructor");
         verticalBox.setFillWidth(true);
         scoreTable.setEditable(false);
 
@@ -47,6 +48,7 @@ public class ScoreView extends Scene {
     }
 
     public void reloadData() {
+        Logger.info("Loading scoreboard data");
         scoreTable.getItems().removeAll();
         ObservableList<List<StringProperty>> data = FXCollections.observableArrayList();
         for (HashMap.Entry<String, Score> entry : overallView.getController().getReader()
